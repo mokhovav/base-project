@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  #service name
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+      POSTGRES_DB: projectDB
+    ports:
+      - 5432:5432
+    #volumes:
+    #  - ./data/postgres:/var/lib/postgresql/data

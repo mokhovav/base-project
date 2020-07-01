@@ -1,3 +1,11 @@
+#Projects settings
+project:
+  config:
+    base:
+      SQLDBEnable: true
+
+
+#slf4j Logger
 logging:
   file:
     name: "logs/application-debug.log"
@@ -6,8 +14,24 @@ logging:
     console: "%black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
     file: "%d %p %C{1.} [%t] %m%n"
     rolling-file-name: "logs/archived/application-debug.%d{yyyy-MM-dd}.%i.log"
-
   level:
     root: info
     com.mokhovav: debug
 
+#Hibernate config
+spring:
+  jooq:
+    sql-dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/projectDB
+    username: user
+    password: user
+    dbcp2:
+      driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+#Database directory
+entities:
+  package: "com.mokhovav.base.databases.sql"
