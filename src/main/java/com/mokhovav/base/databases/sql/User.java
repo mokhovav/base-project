@@ -1,6 +1,6 @@
 package com.mokhovav.base.databases.sql;
 
-import com.mokhovav.base.databases.BaseEntity;
+import com.mokhovav.base.databases.BaseSQLEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class User extends BaseSQLEntity {
     public User() {
     }
 

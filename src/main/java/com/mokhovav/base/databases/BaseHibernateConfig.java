@@ -1,8 +1,8 @@
 package com.mokhovav.base.databases;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -16,15 +16,17 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-public class HibernateConfig {
+//@ConditionalOnProperty(
+//        value="project.config.SQLDBEnable",
+//        havingValue = "true")
+public class BaseHibernateConfig {
     @Autowired
-    private Environment env;
+    Environment env;
 
     @Bean
-    @Conditional(PostgresDBCondition.class)
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("spring.datasource.dbcp2.driver-class-name", "org.postgresql.Driver"));
+        dataSource.setDriverClassName(env.getProperty("spring.datasource.driver-class-name", "org.postgresql.Driver"));
         dataSource.setUrl(env.getProperty("spring.datasource.url", "jdbc:postgresql://localhost:5432/projectDB"));
         dataSource.setUsername(env.getProperty("spring.datasource.username", "user"));
         dataSource.setPassword(env.getProperty("spring.datasource.password", "user"));
@@ -32,17 +34,15 @@ public class HibernateConfig {
     }
 
     @Bean
-    @Conditional(PostgresDBCondition.class)
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(env.getProperty("entities.package", "com.mokhovav.base.databases.sql"));
+        sessionFactory.setPackagesToScan(env.getProperty("project.config.SQLDBEntities", "com.mokhovav.base.databases.sql"));
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
 
     @Bean
-    @Conditional(PostgresDBCondition.class)
     public PlatformTransactionManager hibernateTransactionManager() {
         HibernateTransactionManager transactionManager
                 = new HibernateTransactionManager();

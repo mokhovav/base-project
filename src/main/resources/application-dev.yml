@@ -1,10 +1,32 @@
 #Projects settings
 project:
   config:
-    base:
-      SQLDBEnable: true
+    SQLDBEnable: true
+    SQLDBEntities: com.mokhovav.base.databases.sql
 
+#MongoDB config
 
+#Hibernate config
+spring:
+  jooq:
+    sql-dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/projectDB
+    username: user
+    password: user
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+#MongoDb config
+  data:
+    mongodb:
+      database: base_db
+      host: localhost
+      port: 27017
+      username: root
+      password: toor
 #slf4j Logger
 logging:
   file:
@@ -17,21 +39,3 @@ logging:
   level:
     root: info
     com.mokhovav: debug
-
-#Hibernate config
-spring:
-  jooq:
-    sql-dialect: org.hibernate.dialect.PostgreSQLDialect
-  datasource:
-    url: jdbc:postgresql://localhost:5432/projectDB
-    username: user
-    password: user
-    dbcp2:
-      driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-
-#Database directory
-entities:
-  package: "com.mokhovav.base.databases.sql"

@@ -11,5 +11,13 @@ services:
       POSTGRES_DB: projectDB
     ports:
       - 5432:5432
-    #volumes:
-    #  - ./data/postgres:/var/lib/postgresql/data
+
+  mongodb:
+    image: mongo
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: toor
+    ports:
+      - 27017:27017
