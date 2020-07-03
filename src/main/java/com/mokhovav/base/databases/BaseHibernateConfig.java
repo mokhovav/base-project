@@ -16,9 +16,9 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-//@ConditionalOnProperty(
-//        value="project.config.SQLDBEnable",
-//        havingValue = "true")
+@ConditionalOnProperty(
+        value="project.config.SQLDBEnable",
+        havingValue = "true")
 public class BaseHibernateConfig {
     @Autowired
     Environment env;
