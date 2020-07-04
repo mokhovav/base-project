@@ -1,6 +1,8 @@
 package com.mokhovav.base;
 
-import com.mokhovav.base.databases.sql.User;
+import com.mokhovav.base.annotations.TestCondition;
+import com.mokhovav.base.annotations.TestConditionPrefix;
+import com.mokhovav.base.databases.sql.Group;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Assert;
@@ -8,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.env.Environment;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,20 +21,24 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {BaseApplication.class })
 @Transactional
+@TestConditionPrefix(prefix = "project.config")
 class BaseApplicationTests {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Autowired
-    private MainController controller;
+    private Environment env;
 
+    @Autowired
+    private MainController controller;
 
     @Test
     public void contextLoads() {
@@ -39,22 +46,37 @@ class BaseApplicationTests {
     }
 
     @Test
-    public void whenBootstrapHibernateSession_thenNoException() {
-        Session session = sessionFactory.getCurrentSession();
-        User newEntity = new User();
-        long newEntityID = (long) session.save(newEntity);
-        User searchEntity = session.find(User.class, newEntityID);
-        assertNotNull(searchEntity);
+    @TestCondition(property = "first")
+    public void testFirst() {
+        assertTrue(true);
     }
 
     @Test
-    public void whenProgrammaticTransactionCommit_thenEntityIsInDatabase() {
+    @TestCondition(property = "second")
+    public void testSecond() {
+        fail();
+    }
+
+    @Test
+    public void whenHibernateSession_thenNoException() {
+        if(!TestTransaction.isActive()) TestTransaction.start();
+        Session session = sessionFactory.getCurrentSession();
+        Group newEntity = new Group("test");
+        long newEntityID = (long) session.save(newEntity);
+        Group searchEntity = session.find(Group.class, newEntityID);
+        assertNotNull(searchEntity);
+        TestTransaction.end();
+    }
+
+    @Test
+    public void whenTransactionCommit_thenEntityIsInDatabase() {
+        if(!TestTransaction.isActive()) TestTransaction.start();
         assertTrue(TestTransaction.isActive());
         //Save an entity and commit.
         Session session = sessionFactory.getCurrentSession();
-        User newEntity = new User();
+        Group newEntity = new Group("test");
         long newEntityId = (long) session.save(newEntity);
-        User searchEntity = session.find(User.class, newEntityId);
+        Group searchEntity = session.find(Group.class, newEntityId);
         assertNotNull(searchEntity);
         //Determine whether the current test-managed transaction has been flagged for rollback or flagged for commit.
         assertTrue(TestTransaction.isFlaggedForRollback());
@@ -70,7 +92,7 @@ class BaseApplicationTests {
         assertTrue(TestTransaction.isFlaggedForRollback());
         assertTrue(TestTransaction.isActive());
         session = sessionFactory.getCurrentSession();
-        searchEntity = session.find(User.class, newEntityId);
+        searchEntity = session.find(Group.class, newEntityId);
         assertNotNull(searchEntity);
         session.delete(searchEntity);
         session.flush();
@@ -81,7 +103,7 @@ class BaseApplicationTests {
         //then delete it and commit.
         TestTransaction.start();
         session = sessionFactory.getCurrentSession();
-        searchEntity = session.find(User.class, newEntityId);
+        searchEntity = session.find(Group.class, newEntityId);
         assertNotNull(searchEntity);
         session.delete(searchEntity);
         session.flush();
@@ -94,19 +116,21 @@ class BaseApplicationTests {
         TestTransaction.start();
         assertTrue(TestTransaction.isActive());
         session = sessionFactory.getCurrentSession();
-        searchEntity = session.find(User.class, newEntityId);
+        searchEntity = session.find(Group.class, newEntityId);
         Assert.assertNull(searchEntity);
+        TestTransaction.end();
     }
 
     @Test
     @Commit
-    public void givenTransactionCommitDefault_whenProgrammaticTransactionCommit_thenEntityIsInDatabase() {
+    public void givenTransactionCommitDefault_whenTransactionCommit_thenEntityIsInDatabase() {
+        if(!TestTransaction.isActive()) TestTransaction.start();
         assertTrue(TestTransaction.isActive());
         //Save an entity and commit.
         Session session = sessionFactory.getCurrentSession();
-        User newEntity = new User();
+        Group newEntity = new Group("test");
         long newEntityId = (long) session.save(newEntity);
-        User searchEntity = session.find(User.class, newEntityId);
+        Group searchEntity = session.find(Group.class, newEntityId);
         assertNotNull(searchEntity);
         assertFalse(TestTransaction.isFlaggedForRollback());
         TestTransaction.end();
@@ -119,7 +143,7 @@ class BaseApplicationTests {
         assertFalse(TestTransaction.isFlaggedForRollback());
         assertTrue(TestTransaction.isActive());
         session = sessionFactory.getCurrentSession();
-        searchEntity = session.find(User.class, newEntityId);
+        searchEntity = session.find(Group.class, newEntityId);
         assertNotNull(searchEntity);
         session.delete(searchEntity);
         session.flush();
@@ -131,7 +155,7 @@ class BaseApplicationTests {
         //then delete it and commit.
         TestTransaction.start();
         session = sessionFactory.getCurrentSession();
-        searchEntity = session.find(User.class, newEntityId);
+        searchEntity = session.find(Group.class, newEntityId);
         assertNotNull(searchEntity);
         session.delete(searchEntity);
         session.flush();
@@ -143,9 +167,16 @@ class BaseApplicationTests {
         TestTransaction.start();
         assertTrue(TestTransaction.isActive());
         session = sessionFactory.getCurrentSession();
-        searchEntity = session.find(User.class, newEntityId);
+        searchEntity = session.find(Group.class, newEntityId);
         Assert.assertNull(searchEntity);
+        TestTransaction.end();
     }
 
+    @Test
+    public void entities(){
+        Group user = new Group();
+    }
 
+    //TODO: add tests of exceptions
+    //TODO: add tests of validations
 }

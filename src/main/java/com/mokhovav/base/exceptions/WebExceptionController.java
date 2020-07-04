@@ -15,6 +15,6 @@ public class WebExceptionController {
 
     @ExceptionHandler(WebException.class)
     private void responseEntity(HttpServletRequest req, WebException exception){
-        logger.debug("Exception: "+exception.getMsg());
+        logger.info("WebException: "+exception.getMsg());
     }
 }

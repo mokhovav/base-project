@@ -3,7 +3,8 @@ project:
   config:
     SQLDBEnable: true
     SQLDBEntities: com.mokhovav.base.databases.sql
-
+    first: true
+    second: false
 #MongoDB config
 
 #Hibernate config
@@ -27,15 +28,16 @@ spring:
       port: 27017
       username: root
       password: toor
+
 #slf4j Logger
 logging:
   file:
-    name: "logs/application-debug.log"
+    name: logs/application-debug.log
     max-size: 1MB
   pattern:
     console: "%black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
     file: "%d %p %C{1.} [%t] %m%n"
-    rolling-file-name: "logs/archived/application-debug.%d{yyyy-MM-dd}.%i.log"
+    rolling-file-name: logs/archived/application-debug.%d{yyyy-MM-dd}.%i.log
   level:
     root: info
     com.mokhovav: debug

@@ -2,17 +2,22 @@ package com.mokhovav.base.databases;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 public class BaseSQLEntity {
+
     @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(
+            updatable = false,
+            unique = true
+    )
     private Long id;
+
+    public BaseSQLEntity() {
+    }
 
     public Long getId() {
         return id;

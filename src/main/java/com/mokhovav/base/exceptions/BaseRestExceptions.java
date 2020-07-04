@@ -1,6 +1,5 @@
 package com.mokhovav.base.exceptions;
 
-import com.mokhovav.base.annotations.Tracking;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 

@@ -19,11 +19,15 @@ dependencies {
     implementation 'org.springframework:spring-aspects'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.hibernate:hibernate-core'
-    implementation 'org.springframework:spring-orm'
-    runtimeOnly 'org.postgresql:postgresql'
     //implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
+    implementation 'org.hibernate:hibernate-core'
+    implementation 'org.springframework:spring-orm'
+    implementation 'org.hibernate.validator:hibernate-validator'
+    runtimeOnly 'org.postgresql:postgresql'
+
+    implementation 'org.springframework:spring-test'
+    implementation 'org.junit.jupiter:junit-jupiter-api'
     testCompile group: 'junit', name: 'junit', version: '4.13'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
