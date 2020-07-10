@@ -1,6 +1,7 @@
 package com.mokhovav.base.exceptions;
 
-import org.slf4j.Logger;
+
+import com.mokhovav.base.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,6 +16,6 @@ public class WebExceptionController {
 
     @ExceptionHandler(WebException.class)
     private void responseEntity(HttpServletRequest req, WebException exception){
-        logger.debug("Exception: "+exception.getMsg());
+        logger.info("\033[34mWebException: \033[0m"+exception.getMsg());
     }
 }

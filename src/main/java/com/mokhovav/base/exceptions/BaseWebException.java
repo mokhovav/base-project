@@ -13,6 +13,6 @@ public class BaseWebException extends WebException {
 
     @Override
     public String getMsg() {
-        return "\033[34mWebException: \033[0m " + getMessage();
+        return getMessage();
     }
 }
