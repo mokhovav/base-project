@@ -1,6 +1,6 @@
 package com.mokhovav.base.exceptions;
 
-import org.slf4j.Logger;
+import com.mokhovav.base.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,7 +16,7 @@ public class RestExceptionController {
 
     @ExceptionHandler(RestException.class)
     private ResponseEntity<?> responseEntity(RestException exception, HttpServletRequest request){
-        logger.info("RestException: "+exception.getMsg());
+        logger.info("\033[34mRestException: \033[0m"+exception.getMsg());
         return new ResponseEntity<>(exception.getResponse(), exception.getStatus());
     }
 }

@@ -1,6 +1,5 @@
-package com.mokhovav.base.databases.sql;
+package com.mokhovav.base.JUnit;
 
-import com.mokhovav.base.databases.BaseSQLEntity;
 import com.mokhovav.base.databases.BaseUser;
 
 import javax.persistence.*;
@@ -27,7 +26,7 @@ public class User extends BaseUser {
             boolean needToChange,
             String firstName,
             String lastName,
-            Set<Group> groups
+            Set<Groups> groups
     ) {
         super(login, password, needToChange);
         this.firstName = firstName;
@@ -41,13 +40,13 @@ public class User extends BaseUser {
     @Column(name = "last_name")
     private String lastName;
 
-    @ManyToMany(targetEntity = Group.class, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = Groups.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "users_groups", joinColumns = @JoinColumn(name = "users_id"))
     @Column(
             name = "groups_id",
             nullable = false
     )
-    private Set<Group> groups;
+    private Set<Groups> groups;
 
     public String getFirstName() {
         return firstName;
@@ -65,11 +64,11 @@ public class User extends BaseUser {
         this.lastName = lastName;
     }
 
-    public Set<Group> getGroups() {
+    public Set<Groups> getGroups() {
         return groups;
     }
 
-    public void setGroups(Set<Group> groups) {
+    public void setGroups(Set<Groups> groups) {
         this.groups = groups;
     }
 }

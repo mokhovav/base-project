@@ -2,7 +2,7 @@
 project:
   config:
     SQLDBEnable: true
-    SQLDBEntities: com.mokhovav.base.databases.sql
+    SQLDBEntities: com.mokhovav.base.JUnit
     first: true
     second: false
 #MongoDB config

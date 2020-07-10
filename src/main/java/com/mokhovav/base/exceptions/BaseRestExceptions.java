@@ -32,7 +32,7 @@ public class BaseRestExceptions extends RestException {
     public String getMsg(){
         String message = "\n";
         for (BaseResponse.BaseError error : response.getErrors()) {
-            message += "Exception: \033[33mcode\033[0m " + error.getCode() + " \033[33mtype\033[0m " +error.getType() + " \033[33mmessage\033[0m " + error.getMessage() + "\n";
+            message += "\033[33mcode\033[0m " + error.getCode() + " \033[33mtype\033[0m " +error.getType() + " \033[33mmessage\033[0m " + error.getMessage() + "\n";
         }
         return message;
     }

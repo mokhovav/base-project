@@ -1,4 +1,4 @@
-package com.mokhovav.base.databases.sql;
+package com.mokhovav.base.JUnit;
 
 import com.mokhovav.base.databases.BaseUserGroup;
 
@@ -11,11 +11,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "groups")
-public class Group extends BaseUserGroup {
-    public Group() {
+public class Groups extends BaseUserGroup {
+    public Groups() {
     }
 
-    public Group(@NotBlank(message = "Group name cannot be empty") String group) {
+    public Groups(@NotBlank(message = "Group name cannot be empty") String group) {
         super(group);
     }
 

@@ -34,7 +34,7 @@ public class BaseRestException extends RestException {
     @Override
     public String getMsg(){
         BaseResponse.BaseError error = response.getError();
-        return "Exception: \033[33mcode\033[0m " + error.getCode() + " \033[33mtype\033[0m " +error.getType() + " \033[33mmessage\033[0m " + error.getMessage();
+        return "\033[33mcode\033[0m " + error.getCode() + " \033[33mtype\033[0m " +error.getType() + " \033[33mmessage\033[0m " + error.getMessage();
     }
 
    private class BaseResponse {
