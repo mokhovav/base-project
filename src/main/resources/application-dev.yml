@@ -2,32 +2,30 @@
 project:
   config:
     SQLDBEnable: true
-    SQLDBEntities: com.mokhovav.base.JUnit
+    SQLDBEntities: com.mokhovav.base.databases.SQL
+    MongoDBEnable: true
     first: true
     second: false
 #MongoDB config
 
 #Hibernate config
-spring:
-  jooq:
-    sql-dialect: org.hibernate.dialect.PostgreSQLDialect
-  datasource:
-    url: jdbc:postgresql://localhost:5432/projectDB
-    username: user
-    password: user
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
+hibernate:
+  sql-dialect: org.hibernate.dialect.PostgreSQLDialect
+  driver-class-name: org.postgresql.Driver
+  ddl-auto: update
+  host: localhost
+  port: 5432
+  database: projectDB
+  username: user
+  password: user
 
 #MongoDb config
-  data:
-    mongodb:
-      database: base_db
-      host: localhost
-      port: 27017
-      username: root
-      password: toor
+mongoDB:
+  database: projectDB
+  host: localhost
+  port: 27017
+  username: root
+  password: toor
 
 #slf4j Logger
 logging:

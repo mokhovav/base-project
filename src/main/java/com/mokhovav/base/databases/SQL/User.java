@@ -1,4 +1,4 @@
-package com.mokhovav.base.JUnit;
+package com.mokhovav.base.databases.SQL;
 
 import com.mokhovav.base.databases.BaseUser;
 

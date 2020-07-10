@@ -3,7 +3,6 @@ package com.mokhovav.base;
 import com.mokhovav.base.JUnit.TestEntity;
 import com.mokhovav.base.annotations.TestCondition;
 import com.mokhovav.base.annotations.TestConditionPrefix;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Assert;
@@ -31,7 +30,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 @Transactional
 class BaseApplicationTests {
 
-    @Autowired private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
+
     @Autowired private MainController controller;
 
     @Test
@@ -50,7 +51,6 @@ class BaseApplicationTests {
     public void testSecond() {
         fail();
     }
-
 
     @Test
     public void whenHibernateSession_thenNoException() {
@@ -166,8 +166,6 @@ class BaseApplicationTests {
         Assert.assertNull(searchEntity);
         TestTransaction.end();
     }
-
-
 
     //TODO: add tests of exceptions
     //TODO: add tests of validations

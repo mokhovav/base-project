@@ -4,43 +4,54 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-@Component("HibernateSettings")
-public class PostgreSQLSettings implements SQLDatabaseSettings {
+@Component("PostgreSQLSettings")
+public class PostgreSQLSettings implements DatabaseSettings, HibernateSettings {
     @Autowired
     Environment env;
 
     @Override
     public String getDriverClassName() {
-        return env.getProperty("spring.datasource.driver-class-name", "org.postgresql.Driver");
+        return env.getProperty("hibernate.driver-class-name", "org.postgresql.Driver");
     }
 
     @Override
-    public String getUrl() {
-        return env.getProperty("spring.datasource.url", "jdbc:postgresql://localhost:5432/projectDB");
+    public String getConnectionString() {
+        return "jdbc:postgresql://" +
+                env.getProperty("hibernate.host", "localhost") +
+                ":" + env.getProperty("hibernate.port", Integer.class , 5432) +
+                "/" + getDataBaseName();
     }
 
     @Override
     public String getUsername() {
-        return env.getProperty("spring.datasource.username", "user");
+        return env.getProperty("hibernate.username", "user");
     }
 
     @Override
     public String getPassword() {
-        return env.getProperty("spring.datasource.password", "user");
+        return env.getProperty("hibernate.password", "user");
     }
 
     @Override
-    public String getPackagesToScan() {
-        return env.getProperty("project.config.SQLDBEntities", "com.mokhovav.base.databases.sql");
+    public String getDataBaseName() {
+        return env.getProperty("hibernate.database", "projectDB");
+    }
+
+    @Override
+    public String[] getPackagesToScan() {
+        return new String[]{
+                env.getProperty("project.config.SQLDBEntities", "com.mokhovav.base.databases.SQL"),
+                "com.mokhovav.base.JUnit"
+        };
     }
 
     @Override
     public String getDialect() {
-        return env.getProperty("spring.jooq.sql-dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        return env.getProperty("hibernate.sql-dialect", "org.hibernate.dialect.PostgreSQLDialect");
     }
 
     @Override
     public String getDdlAuto() {
-        return env.getProperty("spring.jpa.hibernate.ddl-auto", "update");
+        return env.getProperty("hibernate.ddl-auto", "update");
     }
 }

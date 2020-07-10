@@ -22,16 +22,19 @@ import java.util.Properties;
 public class SQLDatabaseConfig {
 
    @Autowired
-   @Qualifier("HibernateSettings")
-   SQLDatabaseSettings settings;
+   @Qualifier("PostgreSQLSettings")
+   DatabaseSettings databaseSettings;
+   @Autowired
+   @Qualifier("PostgreSQLSettings")
+   HibernateSettings hibernateSettings;
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(settings.getDriverClassName());
-        dataSource.setUrl(settings.getUrl());
-        dataSource.setUsername(settings.getUsername());
-        dataSource.setPassword(settings.getPassword());
+        dataSource.setDriverClassName(hibernateSettings.getDriverClassName());
+        dataSource.setUrl(databaseSettings.getConnectionString());
+        dataSource.setUsername(databaseSettings.getUsername());
+        dataSource.setPassword(databaseSettings.getPassword());
         return dataSource;
     }
 
@@ -39,7 +42,7 @@ public class SQLDatabaseConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(settings.getPackagesToScan());
+        sessionFactory.setPackagesToScan(hibernateSettings.getPackagesToScan());
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
@@ -54,8 +57,8 @@ public class SQLDatabaseConfig {
 
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", settings.getDdlAuto());
-        hibernateProperties.setProperty("hibernate.dialect", settings.getDialect());
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", hibernateSettings.getDdlAuto());
+        hibernateProperties.setProperty("hibernate.dialect", hibernateSettings.getDialect());
         return hibernateProperties;
     }
 
