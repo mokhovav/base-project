@@ -1,5 +1,6 @@
-package com.mokhovav.base.databases;
+package com.mokhovav.base.databases.SQL;
 
+import com.mokhovav.base.databases.DatabaseSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -10,6 +11,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -22,10 +24,10 @@ import java.util.Properties;
 public class SQLDatabaseConfig {
 
    @Autowired
-   @Qualifier("PostgreSQLSettings")
+   @Qualifier("DatabaseSettings")
    DatabaseSettings databaseSettings;
    @Autowired
-   @Qualifier("PostgreSQLSettings")
+   @Qualifier("PostgreSQL")
    HibernateSettings hibernateSettings;
 
     @Bean
@@ -53,6 +55,11 @@ public class SQLDatabaseConfig {
                 = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
+    }
+
+    @Bean
+    public TransactionTemplate transactionTemplate(){
+        return new TransactionTemplate(hibernateTransactionManager());
     }
 
     private final Properties hibernateProperties() {

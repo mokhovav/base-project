@@ -4,15 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-@Component("PostgreSQLSettings")
-public class PostgreSQLSettings implements DatabaseSettings, HibernateSettings {
+@Component("DatabaseSettings")
+public class BaseDatabaseSettings implements DatabaseSettings {
     @Autowired
     Environment env;
-
-    @Override
-    public String getDriverClassName() {
-        return env.getProperty("hibernate.driver-class-name", "org.postgresql.Driver");
-    }
 
     @Override
     public String getConnectionString() {
@@ -35,23 +30,5 @@ public class PostgreSQLSettings implements DatabaseSettings, HibernateSettings {
     @Override
     public String getDataBaseName() {
         return env.getProperty("hibernate.database", "projectDB");
-    }
-
-    @Override
-    public String[] getPackagesToScan() {
-        return new String[]{
-                env.getProperty("project.config.SQLDBEntities", "com.mokhovav.base.databases.SQL"),
-                "com.mokhovav.base.JUnit"
-        };
-    }
-
-    @Override
-    public String getDialect() {
-        return env.getProperty("hibernate.sql-dialect", "org.hibernate.dialect.PostgreSQLDialect");
-    }
-
-    @Override
-    public String getDdlAuto() {
-        return env.getProperty("hibernate.ddl-auto", "update");
     }
 }

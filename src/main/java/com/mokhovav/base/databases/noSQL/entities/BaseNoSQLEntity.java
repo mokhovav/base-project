@@ -1,4 +1,4 @@
-package com.mokhovav.base.databases;
+package com.mokhovav.base.databases.noSQL.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

@@ -1,4 +1,4 @@
-package com.mokhovav.base.databases;
+package com.mokhovav.base.databases.SQL;
 
 public interface HibernateSettings {
     String getDriverClassName() ;

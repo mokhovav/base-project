@@ -1,8 +1,7 @@
-package com.mokhovav.base.JUnit;
+package com.mokhovav.base.databases.SQL.JUnit;
 
 
-import com.mokhovav.base.databases.BaseSQLEntity;
-import org.springframework.stereotype.Component;
+import com.mokhovav.base.databases.SQL.entities.BaseSQLEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,14 +9,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "junit_test")
-public class TestEntity extends BaseSQLEntity {
+public class TestSQLEntity extends BaseSQLEntity {
     @Column(name = "name")
     String name;
 
-    public TestEntity() {
+    public TestSQLEntity() {
     }
 
-    public TestEntity(String name) {
+    public TestSQLEntity(String name) {
         this.name = name;
     }
 

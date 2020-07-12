@@ -2,7 +2,7 @@
 project:
   config:
     SQLDBEnable: true
-    SQLDBEntities: com.mokhovav.base.databases.SQL
+    SQLDBEntities: com.mokhovav.base.databases.SQL.entities
     MongoDBEnable: true
     first: true
     second: false

@@ -1,5 +1,6 @@
-package com.mokhovav.base.databases;
+package com.mokhovav.base.databases.noSQL;
 
+import com.mokhovav.base.databases.DatabaseSettings;
 import com.mokhovav.base.logging.Logger;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -19,8 +20,8 @@ import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
         value="project.config.MongoDBEnable",
         havingValue = "true")
 public class MongoDBConfig extends AbstractMongoClientConfiguration {
-    @Qualifier("MongoDBSettings")
     @Autowired
+    @Qualifier("MongoDB")
     DatabaseSettings databaseSettings;
 
     @Autowired

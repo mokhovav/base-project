@@ -1,4 +1,4 @@
-package com.mokhovav.base.databases;
+package com.mokhovav.base.databases.SQL.entities;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
