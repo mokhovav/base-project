@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainController {
 
     @Autowired
-    SQLService service;
-
-    @Autowired
     Logger logger;
     @GetMapping
     public String mainMapping() throws BaseRestException {

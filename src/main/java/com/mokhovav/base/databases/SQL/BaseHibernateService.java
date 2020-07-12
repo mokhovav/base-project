@@ -5,12 +5,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @Qualifier("Hibernate")
+@ConditionalOnProperty(
+        value="project.config.SQLDBEnable",
+        havingValue = "true")
 public class BaseHibernateService implements SQLService {
 
     @Autowired

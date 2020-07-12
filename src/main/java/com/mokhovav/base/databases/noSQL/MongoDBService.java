@@ -5,6 +5,7 @@ import com.mokhovav.base.databases.noSQL.entities.BaseNoSQLEntity;
 import com.mongodb.client.result.DeleteResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -17,6 +18,9 @@ import java.util.Optional;
 
 @Service
 @Qualifier("MongoDB")
+@ConditionalOnProperty(
+        value="project.config.MongoDBEnable",
+        havingValue = "true")
 public class MongoDBService implements NoSQLService {
     @Autowired
     MongoTemplate template;
