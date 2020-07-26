@@ -19,8 +19,8 @@ import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
         value="project.config.MongoDBEnable",
         havingValue = "true")
 public class MongoDBConfig extends AbstractMongoClientConfiguration {
+
     @Autowired
-    @Qualifier("MongoDBSettings")
     NoSQLDBSettings noSQLDBSettings;
 
     @Autowired
