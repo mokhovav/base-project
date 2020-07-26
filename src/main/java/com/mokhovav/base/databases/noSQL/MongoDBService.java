@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Qualifier("MongoDB")
 @ConditionalOnProperty(
         value="project.config.MongoDBEnable",
         havingValue = "true")
 public class MongoDBService implements NoSQLService {
+
     @Autowired
     MongoTemplate template;
 
