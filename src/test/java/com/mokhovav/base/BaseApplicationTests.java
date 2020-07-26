@@ -1,12 +1,11 @@
 package com.mokhovav.base;
 
-import com.mokhovav.base.databases.SQL.JUnit.TestSQLEntity;
 import com.mokhovav.base.annotations.TestCondition;
 import com.mokhovav.base.annotations.TestConditionPrefix;
+import com.mokhovav.base.databases.SQL.JUnit.TestSQLEntity;
 import com.mokhovav.base.databases.SQL.SQLService;
 import com.mokhovav.base.databases.noSQL.JUnit.TestNoSQLEntity;
 import com.mokhovav.base.databases.noSQL.NoSQLService;
-import com.mokhovav.base.databases.noSQL.entities.BaseNoSQLEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Assert;
@@ -14,9 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -27,7 +23,6 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
