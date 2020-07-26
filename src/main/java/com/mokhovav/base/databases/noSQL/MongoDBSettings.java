@@ -1,12 +1,11 @@
 package com.mokhovav.base.databases.noSQL;
 
-import com.mokhovav.base.databases.DatabaseSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-@Component("MongoDB")
-public class MongoDBSettings implements DatabaseSettings {
+@Component("MongoDBSettings")
+public class MongoDBSettings implements NoSQLDBSettings {
     @Autowired
     Environment env;
 

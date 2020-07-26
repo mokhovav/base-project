@@ -1,8 +1,6 @@
 package com.mokhovav.base.databases.SQL;
 
-import com.mokhovav.base.databases.DatabaseSettings;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,19 +22,18 @@ import java.util.Properties;
 public class SQLDatabaseConfig {
 
    @Autowired
-   @Qualifier("DatabaseSettings")
-   DatabaseSettings databaseSettings;
+   SQLDBSettings sqldbSettings;
+   
    @Autowired
-   @Qualifier("PostgreSQL")
    HibernateSettings hibernateSettings;
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(hibernateSettings.getDriverClassName());
-        dataSource.setUrl(databaseSettings.getConnectionString());
-        dataSource.setUsername(databaseSettings.getUsername());
-        dataSource.setPassword(databaseSettings.getPassword());
+        dataSource.setUrl(sqldbSettings.getConnectionString());
+        dataSource.setUsername(sqldbSettings.getUsername());
+        dataSource.setPassword(sqldbSettings.getPassword());
         return dataSource;
     }
 

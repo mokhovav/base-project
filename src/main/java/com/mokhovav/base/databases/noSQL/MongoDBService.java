@@ -1,18 +1,13 @@
 package com.mokhovav.base.databases.noSQL;
 
-import com.mokhovav.base.databases.noSQL.JUnit.TestNoSQLEntity;
 import com.mokhovav.base.databases.noSQL.entities.BaseNoSQLEntity;
 import com.mongodb.client.result.DeleteResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
 

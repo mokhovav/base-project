@@ -1,6 +1,5 @@
 package com.mokhovav.base.databases.noSQL;
 
-import com.mokhovav.base.databases.DatabaseSettings;
 import com.mokhovav.base.logging.Logger;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -21,28 +20,28 @@ import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
         havingValue = "true")
 public class MongoDBConfig extends AbstractMongoClientConfiguration {
     @Autowired
-    @Qualifier("MongoDB")
-    DatabaseSettings databaseSettings;
+    @Qualifier("MongoDBSettings")
+    NoSQLDBSettings noSQLDBSettings;
 
     @Autowired
     Logger logger;
 
     @Override
     protected String getDatabaseName() {
-        return databaseSettings.getDataBaseName();
+        return noSQLDBSettings.getDataBaseName();
     }
 
     @Override
     public MongoClient mongoClient() {
-        logger.debug("MongoDB connection string:" + databaseSettings.getConnectionString());
-        return MongoClients.create(databaseSettings.getConnectionString());
+        logger.debug("MongoDB connection string:" + noSQLDBSettings.getConnectionString());
+        return MongoClients.create(noSQLDBSettings.getConnectionString());
     }
 
     @Override
     public MongoDatabaseFactory mongoDbFactory() {
         return new SimpleMongoClientDatabaseFactory(
                 mongoClient(),
-                databaseSettings.getDataBaseName()
+                noSQLDBSettings.getDataBaseName()
         );
     }
 

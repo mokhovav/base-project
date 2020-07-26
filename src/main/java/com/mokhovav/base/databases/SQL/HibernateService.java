@@ -11,11 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@Qualifier("Hibernate")
 @ConditionalOnProperty(
         value="project.config.SQLDBEnable",
         havingValue = "true")
-public class BaseHibernateService implements SQLService {
+public class HibernateService implements SQLService {
 
     @Autowired
     private SessionFactory sessionFactory;

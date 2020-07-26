@@ -1,35 +1,34 @@
 package com.mokhovav.base.databases.SQL;
 
-import com.mokhovav.base.databases.DatabaseSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-@Component("PostgreSQL")
-public class PostgreSQLSettings implements HibernateSettings {
+@Component("PostgreSQLSettings")
+public class PostgreSQLSettings implements SQLDBSettings {
     @Autowired
     Environment env;
 
     @Override
-    public String getDriverClassName() {
-        return env.getProperty("hibernate.driver-class-name", "org.postgresql.Driver");
+    public String getConnectionString() {
+        return "jdbc:postgresql://" +
+                env.getProperty("hibernate.host", "localhost") +
+                ":" + env.getProperty("hibernate.port", Integer.class , 5432) +
+                "/" + getDataBaseName();
     }
 
     @Override
-    public String[] getPackagesToScan() {
-        return new String[]{
-                env.getProperty("project.config.SQLDBEntities", "com.mokhovav.base.databases.SQL"),
-                "com.mokhovav.base.databases.SQL.JUnit"
-        };
+    public String getUsername() {
+        return env.getProperty("hibernate.username", "user");
     }
 
     @Override
-    public String getDialect() {
-        return env.getProperty("hibernate.sql-dialect", "org.hibernate.dialect.PostgreSQLDialect");
+    public String getPassword() {
+        return env.getProperty("hibernate.password", "user");
     }
 
     @Override
-    public String getDdlAuto() {
-        return env.getProperty("hibernate.ddl-auto", "update");
+    public String getDataBaseName() {
+        return env.getProperty("hibernate.database", "projectDB");
     }
 }
