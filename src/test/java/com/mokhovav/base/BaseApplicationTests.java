@@ -43,18 +43,11 @@ class BaseApplicationTests {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Autowired private MainController controller;
-
     @Autowired
     private SQLService sqlService;
 
     @Autowired
     private NoSQLService noSQLService;
-
-    @Test
-    public void contextLoads() {
-        assertThat(controller).isNotNull();
-    }
 
     @Test
     @TestCondition(property = "first")
