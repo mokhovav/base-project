@@ -1,12 +1,10 @@
 package com.mokhovav.base.exceptions;
 
-
 import com.mokhovav.base.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
 import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice(annotations = Controller.class)

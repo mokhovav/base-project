@@ -3,7 +3,6 @@ package com.mokhovav.base.databases.noSQL;
 import com.mokhovav.base.databases.noSQL.entities.BaseNoSQLEntity;
 import com.mongodb.client.result.DeleteResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @ConditionalOnProperty(
-        value="project.config.MongoDBEnable",
+        value = "project.config.MongoDBEnable",
         havingValue = "true")
 public class MongoDBService implements NoSQLService {
 
@@ -48,7 +47,7 @@ public class MongoDBService implements NoSQLService {
     }
 
     @Override
-    public String update(BaseNoSQLEntity object){
+    public String update(BaseNoSQLEntity object) {
         return Optional.ofNullable(template.save(object))
                 .map(BaseNoSQLEntity::getId)
                 .orElse(null);

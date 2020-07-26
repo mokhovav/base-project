@@ -10,22 +10,20 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.TransactionTemplate;
-
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
 @ConditionalOnProperty(
-        value="project.config.SQLDBEnable",
+        value = "project.config.SQLDBEnable",
         havingValue = "true")
 public class SQLDatabaseConfig {
+    @Autowired
+    private SQLDBSettings sqldbSettings;
 
-   @Autowired
-   SQLDBSettings sqldbSettings;
-   
-   @Autowired
-   HibernateSettings hibernateSettings;
+    @Autowired
+    private HibernateSettings hibernateSettings;
 
     @Bean
     public DataSource dataSource() {
@@ -55,7 +53,7 @@ public class SQLDatabaseConfig {
     }
 
     @Bean
-    public TransactionTemplate transactionTemplate(){
+    public TransactionTemplate transactionTemplate() {
         return new TransactionTemplate(hibernateTransactionManager());
     }
 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component("SQLSettings")
 public class SQLSettings implements HibernateSettings {
+
     @Autowired
     Environment env;
 

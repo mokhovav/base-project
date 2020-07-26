@@ -1,7 +1,6 @@
 package com.mokhovav.base.databases.SQL.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
