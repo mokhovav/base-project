@@ -11,12 +11,12 @@ import javax.validation.constraints.Size;
 public class BaseUser extends BaseSQLEntity {
 
     @Column(
-            name = "login",
+            name = "username",
             unique=true
     )
     @Size(min = 3, max = 255)
     @NotBlank(message = "Login cannot be empty")
-    private String login;
+    private String username;
 
     @JsonIgnore
     @Column(name = "password")
@@ -52,19 +52,19 @@ public class BaseUser extends BaseSQLEntity {
     }
 
     public BaseUser(
-            @NotBlank(message = "Login cannot be empty") String login,
+            @NotBlank(message = "Login cannot be empty") String username,
             @NotBlank(message = "Password cannot be empty") String password
     ) {
-        this.login = login;
+        this.username = username;
         this.password = password;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String login) {
+        this.username = login;
     }
 
     public String getPassword() {
