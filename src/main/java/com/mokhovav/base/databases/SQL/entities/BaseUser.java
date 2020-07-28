@@ -1,7 +1,9 @@
 package com.mokhovav.base.databases.SQL.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 
 @MappedSuperclass
