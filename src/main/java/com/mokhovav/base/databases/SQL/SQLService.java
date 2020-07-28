@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface SQLService<T> {
     Long save(T object);
-    boolean update(T object);
+    Object update(T object);
     boolean delete(T object);
     T getById(Long id, Class<T> c);
     T findObject(String text);

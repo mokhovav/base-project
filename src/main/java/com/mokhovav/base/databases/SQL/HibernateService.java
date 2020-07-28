@@ -29,12 +29,13 @@ public class HibernateService implements SQLService {
     }
 
     @Override
-    public boolean update(Object object) {
+    public Object update(Object object) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
+        Object obj = session.merge(object);
         transaction.commit();
         session.close();
-        return true;
+        return obj;
     }
 
     @Override
