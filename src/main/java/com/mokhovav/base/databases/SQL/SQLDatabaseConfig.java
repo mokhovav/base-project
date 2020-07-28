@@ -10,6 +10,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.TransactionTemplate;
+
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -19,16 +20,17 @@ import java.util.Properties;
         value = "project.config.SQLDBEnable",
         havingValue = "true")
 public class SQLDatabaseConfig {
+
     @Autowired
-    private SQLSettings sqldbSettings;
+    private SQLSettings sqlSettings;
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(sqldbSettings.getDriverClassName());
-        dataSource.setUrl(sqldbSettings.getConnectionString());
-        dataSource.setUsername(sqldbSettings.getUsername());
-        dataSource.setPassword(sqldbSettings.getPassword());
+        dataSource.setDriverClassName(sqlSettings.getDriverClassName());
+        dataSource.setUrl(sqlSettings.getConnectionString());
+        dataSource.setUsername(sqlSettings.getUsername());
+        dataSource.setPassword(sqlSettings.getPassword());
         return dataSource;
     }
 
@@ -36,7 +38,7 @@ public class SQLDatabaseConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(sqldbSettings.getPackagesToScan());
+        sessionFactory.setPackagesToScan(sqlSettings.getPackagesToScan());
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
@@ -56,8 +58,8 @@ public class SQLDatabaseConfig {
 
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", sqldbSettings.getDdlAuto());
-        hibernateProperties.setProperty("hibernate.dialect", sqldbSettings.getDialect());
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", sqlSettings.getDdlAuto());
+        hibernateProperties.setProperty("hibernate.dialect", sqlSettings.getDialect());
         return hibernateProperties;
     }
 

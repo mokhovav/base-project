@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component("noSQLDBSettings")
 public class NoSQLDBSettings implements NoSQLSettings {
+
     @Autowired
     Environment env;
 
