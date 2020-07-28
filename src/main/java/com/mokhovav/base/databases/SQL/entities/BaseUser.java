@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @MappedSuperclass
 public class BaseUser extends BaseSQLEntity {
@@ -13,28 +14,49 @@ public class BaseUser extends BaseSQLEntity {
             name = "login",
             unique=true
     )
+    @Size(min = 3, max = 255)
     @NotBlank(message = "Login cannot be empty")
     private String login;
 
     @JsonIgnore
     @Column(name = "password")
+    @Size(min = 5, max = 255)
     @NotBlank(message = "Password cannot be empty")
     private String password;
 
-    @Column(name = "need_to_change")
-    private boolean needToChange = false;
+    @Column(
+            name = "account_non_expired",
+            columnDefinition = "boolean default true"
+    )
+    private boolean accountNonExpired;
+
+    @Column(
+            name = "account_non_locked",
+            columnDefinition = "boolean default true"
+    )
+    private boolean accountNonLocked;
+
+    @Column(
+            name = "credential_non_expired",
+            columnDefinition = "boolean default true"
+    )
+    private boolean credentialsNonExpired;
+
+    @Column(
+            name = "enabled",
+            columnDefinition = "boolean default true"
+    )
+    private boolean enabled;
 
     public BaseUser() {
     }
 
     public BaseUser(
             @NotBlank(message = "Login cannot be empty") String login,
-            @NotBlank(message = "Password cannot be empty") String password,
-            boolean needToChange
+            @NotBlank(message = "Password cannot be empty") String password
     ) {
         this.login = login;
         this.password = password;
-        this.needToChange = needToChange;
     }
 
     public String getLogin() {
@@ -53,11 +75,35 @@ public class BaseUser extends BaseSQLEntity {
         this.password = password;
     }
 
-    public boolean isNeedToChange() {
-        return needToChange;
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
     }
 
-    public void setNeedToChange(boolean needToChange) {
-        this.needToChange = needToChange;
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
