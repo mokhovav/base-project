@@ -10,6 +10,7 @@ project:
 
 #Hibernate config
 hibernate:
+  prefix: jdbc:postgresql
   sql-dialect: org.hibernate.dialect.PostgreSQLDialect
   driver-class-name: org.postgresql.Driver
   ddl-auto: update
@@ -19,8 +20,9 @@ hibernate:
   username: user
   password: user
 
-#MongoDb config
-mongoDB:
+#noSQL config
+noSQL:
+  prefix: mongodb
   database: projectDB
   host: localhost
   port: 27017

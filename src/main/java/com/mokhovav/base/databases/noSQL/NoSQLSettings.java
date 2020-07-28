@@ -4,34 +4,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-@Component("MongoDBSettings")
-public class MongoDBSettings implements NoSQLDBSettings {
+@Component("noSQLSettings")
+public class NoSQLSettings implements NoSQLDBSettings {
     @Autowired
     Environment env;
 
     @Override
     public String getConnectionString() {
-        return "mongodb://" +
+        return  getPrefix() + "://" +
                 getUsername() +
                 ":" + getPassword() +
-                "@" + env.getProperty("mongoDB.host", "mongodb") +
-                ":" + env.getProperty("mongoDB.port", Integer.class , 27017);
+                "@" + env.getProperty("noSQL.host") +
+                ":" + env.getProperty("noSQL.port", Integer.class);
     }
 
     @Override
     public String getUsername() {
-        return env.getProperty("mongoDB.username", "user");
+        return env.getProperty("noSQL.username");
 
     }
 
     @Override
     public String getPassword() {
-        return env.getProperty("mongoDB.password", "user");
+        return env.getProperty("noSQL.password");
 
     }
 
     @Override
     public String getDataBaseName() {
-        return env.getProperty("mongoDB.database", "projectDB");
+        return env.getProperty("noSQL.database");
+    }
+
+    @Override
+    public String getPrefix() {
+        return env.getProperty("noSQL.prefix");
     }
 }

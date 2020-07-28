@@ -5,7 +5,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component("SQLSettings")
-public class SQLSettings implements HibernateSettings {
+public class SQLSettings implements SQLDBSettings {
+
     @Autowired
     Environment env;
 
@@ -30,5 +31,33 @@ public class SQLSettings implements HibernateSettings {
     @Override
     public String getDdlAuto() {
         return env.getProperty("hibernate.ddl-auto");
+    }
+
+    @Override
+    public String getConnectionString() {
+        return  getPrefix() + "://" +
+                env.getProperty("hibernate.host") +
+                ":" + env.getProperty("hibernate.port", Integer.class) +
+                "/" + getDataBaseName();
+    }
+
+    @Override
+    public String getUsername() {
+        return env.getProperty("hibernate.username");
+    }
+
+    @Override
+    public String getPassword() {
+        return env.getProperty("hibernate.password");
+    }
+
+    @Override
+    public String getDataBaseName() {
+        return env.getProperty("hibernate.database");
+    }
+
+    @Override
+    public String getPrefix() {
+        return env.getProperty("hibernate.prefix");
     }
 }

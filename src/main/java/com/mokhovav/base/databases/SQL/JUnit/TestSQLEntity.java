@@ -1,8 +1,6 @@
 package com.mokhovav.base.databases.SQL.JUnit;
 
-
 import com.mokhovav.base.databases.SQL.entities.BaseSQLEntity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;

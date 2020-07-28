@@ -5,4 +5,5 @@ public interface DBSettings {
     String getUsername();
     String getPassword();
     String getDataBaseName();
+    String getPrefix();
 }
