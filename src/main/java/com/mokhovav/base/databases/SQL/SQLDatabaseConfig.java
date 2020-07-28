@@ -22,13 +22,10 @@ public class SQLDatabaseConfig {
     @Autowired
     private SQLDBSettings sqldbSettings;
 
-    @Autowired
-    private HibernateSettings hibernateSettings;
-
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(hibernateSettings.getDriverClassName());
+        dataSource.setDriverClassName(sqldbSettings.getDriverClassName());
         dataSource.setUrl(sqldbSettings.getConnectionString());
         dataSource.setUsername(sqldbSettings.getUsername());
         dataSource.setPassword(sqldbSettings.getPassword());
@@ -39,7 +36,7 @@ public class SQLDatabaseConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(hibernateSettings.getPackagesToScan());
+        sessionFactory.setPackagesToScan(sqldbSettings.getPackagesToScan());
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
@@ -59,8 +56,8 @@ public class SQLDatabaseConfig {
 
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", hibernateSettings.getDdlAuto());
-        hibernateProperties.setProperty("hibernate.dialect", hibernateSettings.getDialect());
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", sqldbSettings.getDdlAuto());
+        hibernateProperties.setProperty("hibernate.dialect", sqldbSettings.getDialect());
         return hibernateProperties;
     }
 
