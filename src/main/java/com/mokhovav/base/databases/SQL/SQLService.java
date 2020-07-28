@@ -1,9 +1,11 @@
 package com.mokhovav.base.databases.SQL;
 
 import com.mokhovav.base.databases.SQL.entities.BaseSQLEntity;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface SQLService<T> {
     Long save(T object);
     boolean update(T object);

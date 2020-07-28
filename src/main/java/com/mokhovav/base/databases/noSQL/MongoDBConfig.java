@@ -20,7 +20,7 @@ import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 public class MongoDBConfig extends AbstractMongoClientConfiguration {
 
     @Autowired
-    NoSQLDBSettings noSQLDBSettings;
+    NoSQLSettings noSQLDBSettings;
 
     @Autowired
     Logger logger;

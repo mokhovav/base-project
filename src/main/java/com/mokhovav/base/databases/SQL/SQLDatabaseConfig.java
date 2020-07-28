@@ -20,7 +20,7 @@ import java.util.Properties;
         havingValue = "true")
 public class SQLDatabaseConfig {
     @Autowired
-    private SQLDBSettings sqldbSettings;
+    private SQLSettings sqldbSettings;
 
     @Bean
     public DataSource dataSource() {
